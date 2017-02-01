@@ -1,12 +1,18 @@
 #!/bin/bash
-# This is our bootstrap secuence
+# This is our bootstrap sequence
 
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-git clone git@bitbucket.org:ftortega/autoscalescript.git
-source autoscalescript/mainscript.sh
+apt-get update
+apt-get -y install git
+apt-get -y install stress
+apt-get -y install build-essential
+cd /home/ubuntu/
+
+git clone https://ftortega@bitbucket.org/ftortega/autoscalescript.git
+cd /home/ubuntu/autoscalescript
+source mainscript.sh
 
 
-# echo "<html><body>Hello World $(date)</body></html>" > ~/index.html
-# cd ~
-# python -m SimpleHTTPServer 80
-z
+
+
+
