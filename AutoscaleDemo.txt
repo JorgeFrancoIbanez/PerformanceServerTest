@@ -1,0 +1,21 @@
+# Demo
+
+
+0. Create from the snapshot
+1. Obtain the stack id
+    openstack stack list
+    b0393f49-3cfb-46ee-b1fa-f502542d68eb
+2. Obtain the stack floating ip
+    <stackfloatingip>
+3. On uat_service001 watch the measures aggregation
+    watch -n 5 "gnocchi measures aggregation  --refresh --resource-type instance --query 'server_group=\"b2a58174-c8ec-41c4-9564-925da937c1d8\" and ended_at=None' --granularity 60 --aggregation mean -m cpu_util"
+
+    gnocchi measures aggregation  --refresh --resource-type instance --query 'server_group="b0393f49-3cfb-46ee-b1fa-f502542d68eb" and ended_at=None' --granularity 60 --aggregation mean -m cpu_util -f json | jq .
+
+4. On uat_service001 watch the alarms
+    watch -n 5  aodh alarm list -t gnocchi_aggregation_by_resources_threshold
+5. Stress one of the servers to 60% , the average load should increase to 60% and once the second server comes in the average load shoudl reduce to 30%
+    curl -X POST "http://192.168.211.126/stress?load=60&timeout=100000"
+6. Monitor the server load using
+    watch -n 0.5 'curl -s -X GET "http://192.168.211.126/load"  | jq .'
+
