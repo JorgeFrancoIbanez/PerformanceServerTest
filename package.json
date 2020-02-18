@@ -1,0 +1,26 @@
+{
+    "name": "rest-api-tutorial",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JorgeFrancoIbanez/PerformanceServerTest.git"
+    },
+    "author": "Jorge Franco",
+    "license": "",
+    "bugs": {
+        "url": "https://github.com/JorgeFrancoIbanez/PerformanceServerTest/issues"
+    },
+    "homepage": "https://github.com/JorgeFrancoIbanez/PerformanceServerTest",
+    "dependencies": {
+        "body-parser": "1.7.0",
+        "express": "^4.8.7",
+        "sync-request": "^4.0.2",
+        "node-fetch": "^2.6.0",
+        "bluebird": "^3.7.2"
+    }
+}

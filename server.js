@@ -1,16 +1,20 @@
 var exec = require('child_process').exec;
 var os = require('os');
-var request = require('request');
-var express = require("express");
-
+const fetch = require('node-fetch');
+const express = require("express");
+const Bluebird = require('bluebird');
+let check_status = require('./utils')
+fetch.Promise = Bluebird;
 var app = express();
 
-var extIp;
+var extIP;
 
-request.get('http://ipinfo.io/json',function(err,res,body){
-  if (!err && res.statusCode == 200) {
-     extIP = JSON.parse(body);
-  }
+fetch('http://ipinfo.io/json')
+    .then(check_status)
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+        extIP = res;
 });
 
 /* serves main page */
@@ -56,7 +60,7 @@ app.get("/getpi", function(req, res) {
         pi : getPi(iters),
         loadavg: os.loadavg(),
         hostname: os.hostname(),
-        ip: os.networkInterfaces().eth0[0].address
+        ip: os.networkInterfaces().ens3[0].address
     });
 });
 
@@ -64,20 +68,20 @@ app.get("/load", function(req, res) {
     res.json({
         loadavg: os.loadavg(),
         hostname: os.hostname(),
-        ip: os.networkInterfaces().eth0[0].address
+        ip: os.networkInterfaces().ens3[0].address
     });
 });
 
 app.post("/stress", function(req, res) {
     var load = Math.max(Math.min(Number(req.query.load || 0) ,100), 0) ;
     var timeout = Math.max(Math.min(Number(req.query.timeout || 0) ,100000), 0) ;
-    var command = "/home/ubuntu/stress-ng-0.09.04/stress-ng -c 0 -l " + load + ((timeout>0 )?(" -t " + timeout):"");
+    var command = "/home/ubuntu/stress-ng-0.11.00/stress-ng -c 0 -l " + load + ((timeout>0 )?(" -t " + timeout):"");
 
     res.json({
         command : command,
         loadavg: os.loadavg(),
         hostname: os.hostname(),
-        ip: os.networkInterfaces().eth0[0].address
+        ip: os.networkInterfaces().ens3[0].address
     });
 
     // Kill existing stressors
@@ -127,3 +131,4 @@ function getPi(iters){
 app.listen(80, function() {
    console.log("Listening on port 80");
 });
+
