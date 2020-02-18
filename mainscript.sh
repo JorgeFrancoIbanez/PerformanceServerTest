@@ -12,7 +12,7 @@ tar -xf stress-ng-0.11.00.tar.xz
 cd /home/ubuntu/stress-ng-0.11.00
 make
 
-cd /home/ubuntu/autoscalescript
+cd /home/ubuntu/atlastest
 npm install express node-fetch bluebird
 
 # Run the webserver server.js
