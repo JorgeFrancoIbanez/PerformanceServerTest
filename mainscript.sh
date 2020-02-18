@@ -1,16 +1,20 @@
 #!/bin/bash
 
-source  installnode.sh
-
+# Install Node.js
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
 # install
+sudo apt install tar
 cd /home/ubuntu
-wget http://kernel.ubuntu.com/~cking/tarballs/stress-ng/stress-ng-0.09.04.tar.gz
-tar zxvf stress-ng-0.09.04.tar.gz
-cd /home/ubuntu/stress-ng-0.09.04
+wget https://kernel.ubuntu.com/~cking/tarballs/stress-ng/stress-ng-0.11.00.tar.xz
+tar -xf stress-ng-0.11.00.tar.xz
+#tar zxvf stress-ng-0.11.00.tar.xz
+cd /home/ubuntu/stress-ng-0.11.00
 make
 
 cd /home/ubuntu/autoscalescript
-npm install express request
+npm install express node-fetch bluebird
+
 # Run the webserver server.js
 node server.js &
 

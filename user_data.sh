@@ -8,7 +8,7 @@ apt-get -y install stress
 apt-get -y install build-essential
 cd /home/ubuntu/
 
-git clone https://ftortega@bitbucket.org/ftortega/autoscalescript.git
+git clone https://github.com/JorgeFrancoIbanez/PerformanceServerTest.git
 cd /home/ubuntu/autoscalescript
 source mainscript.sh
 
